@@ -34,9 +34,9 @@ function App() {
             className="mt-2 btn btn-dark w-75"
             onChange={(e) => handle(e)} />
             <h1></h1>
-            <Button>Compress Image</Button>
+            {origImageFile && <Button primary>Compress Image</Button>}
             <h1></h1>
-            <Button>Download Image</Button>
+            {compressedImage && <Button primary>Download Image</Button>}
           </Grid.Column>
           <Grid.Column width={6}>
             <Item>
