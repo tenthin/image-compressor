@@ -58,7 +58,12 @@ function App() {
             <h1></h1>
             {origImageFile && <Button primary onClick={(e) => {handleCompressImage(e)}}>Compress Image</Button>}
             <h1></h1>
-            {compressedImage && <Button primary>Download Image</Button>}
+            {compressedImage && <Button primary>
+              <a href={compressedImage} download={fileName}>
+                {" "}
+              Download Image
+              </a>
+              </Button>}
           </Grid.Column>
           <Grid.Column width={6}>
             <Item>
