@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Container, Grid, Image, Item, Button } from "semantic-ui-react";
-
+import imageCompression from "browser-image-compression";
 
 function App() {
   const [origImage,setOrigImage] = useState('');
@@ -15,6 +15,28 @@ function App() {
     setFileName(imageFile.name);
   }
 
+  const handleCompressImage = (e) =>{
+    e.preventDefault();
+
+    const options = {
+      maxSizeMB : 1,
+      maxWidthOrHeight:500,
+      useWebWorker:true
+    }
+
+    if(options.maxSizeMB >= origImage/1024){
+      alert("Image is too small, can't be compressed");
+      return 0;
+    }
+
+    let output;
+    imageCompression(origImage,options).then((x)=>{
+      output = x
+
+      const downloadLink = URL.createObjectURL(output)
+      setCompressedImage(downloadLink)
+    })
+ }  
   return (
     <div className="App">
       <h1></h1>
@@ -34,7 +56,7 @@ function App() {
             className="mt-2 btn btn-dark w-75"
             onChange={(e) => handle(e)} />
             <h1></h1>
-            {origImageFile && <Button primary>Compress Image</Button>}
+            {origImageFile && <Button primary onClick={(e) => {handleCompressImage(e)}}>Compress Image</Button>}
             <h1></h1>
             {compressedImage && <Button primary>Download Image</Button>}
           </Grid.Column>
